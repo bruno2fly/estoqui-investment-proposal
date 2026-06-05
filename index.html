@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ESTOQUI - Partnership Investment Proposal</title>
+    <title>ESTOQUI - Investment Proposal</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
         * {
             margin: 0;
             padding: 0;
@@ -12,209 +14,272 @@
         }
         
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #059669 0%, #047857 100%);
-            color: #333;
-            line-height: 1.6;
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
         }
         
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .slide {
-            background: white;
-            border-radius: 20px;
-            padding: 50px 40px;
-            margin: 30px 0;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-            min-height: 500px;
+            display: none;
+            width: 90%;
+            max-width: 1200px;
+            height: 85vh;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            border-radius: 24px;
+            padding: 60px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+        
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            animation: slideIn 0.6s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #10b981, #059669, #047857);
         }
         
         .slide h1 {
-            color: #059669;
-            font-size: 48px;
+            font-size: 64px;
             font-weight: 800;
+            background: linear-gradient(135deg, #10b981, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 20px;
             text-align: center;
         }
         
         .slide h2 {
-            color: #047857;
-            font-size: 32px;
+            font-size: 48px;
             font-weight: 700;
-            margin-bottom: 25px;
-            border-bottom: 3px solid #10b981;
-            padding-bottom: 10px;
+            color: #10b981;
+            margin-bottom: 30px;
         }
         
         .slide h3 {
-            color: #1f2937;
-            font-size: 24px;
+            font-size: 28px;
             font-weight: 600;
-            margin: 20px 0 15px 0;
+            color: #d1d5db;
+            margin-bottom: 20px;
+        }
+        
+        .slide p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #9ca3af;
+            margin-bottom: 15px;
         }
         
         .tagline {
-            font-size: 22px;
+            font-size: 24px;
             color: #6b7280;
             text-align: center;
-            margin-bottom: 40px;
-            font-style: italic;
+            margin-bottom: 50px;
+            font-weight: 300;
         }
         
-        .investment-highlight {
-            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-            color: white;
-            padding: 35px;
-            border-radius: 15px;
+        .highlight-box {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            padding: 40px;
+            border-radius: 16px;
             text-align: center;
             margin: 30px 0;
+            border: 1px solid rgba(255,255,255,0.1);
         }
         
-        .investment-highlight h3 {
-            color: white;
-            font-size: 28px;
-            margin-bottom: 15px;
+        .highlight-box h3 {
+            color: #ffffff;
+            font-size: 32px;
+            margin-bottom: 20px;
         }
         
-        .metrics-grid {
+        .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 25px;
-            margin: 30px 0;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin: 40px 0;
         }
         
-        .metric {
-            background: #f0fdf4;
-            padding: 25px;
-            border-radius: 12px;
+        .stat {
             text-align: center;
-            border-left: 4px solid #059669;
+            padding: 25px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 16px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
         }
         
-        .metric-number {
+        .stat-number {
             font-size: 36px;
             font-weight: 800;
-            color: #047857;
+            color: #10b981;
             display: block;
+            margin-bottom: 8px;
         }
         
-        .metric-label {
+        .stat-label {
             font-size: 14px;
-            color: #6b7280;
+            color: #9ca3af;
             font-weight: 500;
-            margin-top: 8px;
         }
         
-        .ecosystem-grid {
+        .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 30px;
-            margin: 30px 0;
+            margin: 40px 0;
         }
         
-        .ecosystem-item {
-            background: #f8fafc;
+        .feature {
+            background: rgba(255,255,255,0.05);
             padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            border: 2px solid #e5e7eb;
-            transition: all 0.3s ease;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.1);
         }
         
-        .ecosystem-item:hover {
-            border-color: #059669;
-            transform: translateY(-5px);
-        }
-        
-        .ecosystem-item h4 {
-            color: #047857;
+        .feature h4 {
+            color: #10b981;
             font-size: 20px;
             margin-bottom: 15px;
+            font-weight: 600;
         }
         
-        .cost-breakdown {
-            background: #fef3c7;
-            border-left: 4px solid #f59e0b;
-            padding: 25px;
-            border-radius: 12px;
-            margin: 25px 0;
+        .feature p {
+            color: #d1d5db;
+            font-size: 16px;
         }
         
-        .revenue-projection {
-            background: #ecfdf5;
-            border-left: 4px solid #059669;
-            padding: 25px;
-            border-radius: 12px;
-            margin: 25px 0;
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
         }
         
-        .partnership-terms {
-            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
-            color: white;
-            padding: 40px;
-            border-radius: 15px;
-            margin: 30px 0;
+        .nav-btn {
+            padding: 12px 24px;
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid #10b981;
+            border-radius: 8px;
+            color: #10b981;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
         }
         
-        .partnership-terms h3 {
-            color: white;
-            margin-bottom: 20px;
+        .nav-btn:hover {
+            background: #10b981;
+            color: #ffffff;
         }
         
-        .roi-calculator {
-            background: #1f2937;
-            color: white;
-            padding: 35px;
-            border-radius: 15px;
-            margin: 30px 0;
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(0,0,0,0.5);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #9ca3af;
+            z-index: 1000;
         }
         
-        .roi-calculator h3 {
-            color: white;
-            margin-bottom: 20px;
-        }
-        
-        .timeline {
+        .revenue-timeline {
             display: flex;
             justify-content: space-between;
-            margin: 30px 0;
-            padding: 20px 0;
+            margin: 40px 0;
         }
         
         .timeline-item {
             text-align: center;
             flex: 1;
-            padding: 20px;
-            background: #f0f9ff;
+            padding: 25px;
+            background: rgba(16, 185, 129, 0.1);
             margin: 0 10px;
-            border-radius: 10px;
-            border-top: 4px solid #0ea5e9;
+            border-radius: 16px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
         }
         
         .timeline-item h4 {
-            color: #0c4a6e;
+            color: #10b981;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .partnership-terms {
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            padding: 40px;
+            border-radius: 16px;
+            margin: 30px 0;
+        }
+        
+        .partnership-terms h3 {
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+        
+        .terms-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        
+        .terms-grid p {
+            color: #e5e7eb;
             margin-bottom: 10px;
         }
         
         @media (max-width: 768px) {
             .slide {
-                padding: 30px 20px;
-                margin: 20px 0;
+                padding: 40px 30px;
             }
             
             .slide h1 {
-                font-size: 36px;
+                font-size: 48px;
             }
             
             .slide h2 {
-                font-size: 28px;
+                font-size: 36px;
             }
             
-            .timeline {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .revenue-timeline {
                 flex-direction: column;
             }
             
@@ -225,346 +290,331 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        
-        <!-- SLIDE 1: TITLE -->
-        <div class="slide">
+    
+    <div class="slide-counter">
+        <span id="currentSlide">1</span> / <span id="totalSlides">8</span>
+    </div>
+
+    <!-- SLIDE 1: TITLE -->
+    <div class="slideshow-container">
+        <div class="slide active">
             <h1>ESTOQUI</h1>
             <p class="tagline">Complete Retail Technology Ecosystem for Brazilian Supermarkets</p>
             
-            <div class="investment-highlight">
+            <div class="highlight-box">
                 <h3>Partnership Investment Opportunity</h3>
-                <p><strong>Investment Required:</strong> R$175,000 (US$35,000)</p>
-                <p><strong>Equity Stake:</strong> 20-25%</p>
-                <p><strong>Projected ROI:</strong> 300-500% in 24 months</p>
-                <p><strong>Market:</strong> 50,000+ Brazilian supermarkets</p>
+                <div class="terms-grid">
+                    <div>
+                        <p><strong>Investment:</strong> R$175,000 (US$35,000)</p>
+                        <p><strong>Equity Stake:</strong> 22.5%</p>
+                    </div>
+                    <div>
+                        <p><strong>Projected ROI:</strong> 3,494% in 24 months</p>
+                        <p><strong>Market:</strong> 50,000+ Brazilian supermarkets</p>
+                    </div>
+                </div>
             </div>
             
-            <div style="text-align: center; margin-top: 30px;">
-                <p><strong>Bruno Lima, Founder</strong> • <strong>2FLY Digital Technology</strong></p>
-                <p>📧 bruno@2flydigitalmarketing.com | 📱 +1 (781) 606-2445</p>
+            <div style="text-align: center; margin-top: 40px;">
+                <p style="color: #d1d5db; font-size: 16px;"><strong>Bruno Lima, Founder</strong> • 2FLY Digital Technology</p>
+                <p style="color: #9ca3af; font-size: 14px;">bruno@2flydigitalmarketing.com | +1 (781) 606-2445</p>
             </div>
         </div>
-
-        <!-- SLIDE 2: THE COMPLETE ECOSYSTEM -->
+        
+        <!-- SLIDE 2: THE ECOSYSTEM -->
         <div class="slide">
-            <h2>The Complete ESTOQUI Ecosystem</h2>
-            <h3>Software + Hardware + Payment Processing = Total Solution</h3>
+            <h2>The Complete Ecosystem</h2>
+            <h3>Software + Hardware + Payments = Total Solution</h3>
             
-            <div class="ecosystem-grid">
-                <div class="ecosystem-item">
-                    <h4>📱 ESTOQUI App</h4>
-                    <p><strong>Inventory Management Software</strong></p>
-                    <p>Real-time stock tracking, automated reordering, supplier management, and analytics dashboard</p>
+            <div class="features-grid">
+                <div class="feature">
+                    <h4>📱 ESTOQUI Software</h4>
+                    <p>Real-time inventory management, automated reordering, supplier management, and comprehensive analytics dashboard</p>
                 </div>
                 
-                <div class="ecosystem-item">
-                    <h4>🖥️ POS System</h4>
-                    <p><strong>Point of Sale Hardware</strong></p>
-                    <p>iPad-based terminals with barcode scanners, receipt printers, and cash drawers</p>
+                <div class="feature">
+                    <h4>🖥️ POS Hardware</h4>
+                    <p>iPad-based terminals with barcode scanners, receipt printers, cash drawers, and card readers</p>
                 </div>
                 
-                <div class="ecosystem-item">
+                <div class="feature">
                     <h4>💳 Payment Processing</h4>
-                    <p><strong>Stripe Integration</strong></p>
-                    <p>Credit/debit cards, PIX payments, and digital wallets with real-time settlement</p>
+                    <p>Stripe integration for credit/debit cards, PIX payments, digital wallets with real-time settlement</p>
                 </div>
                 
-                <div class="ecosystem-item">
+                <div class="feature">
                     <h4>📊 Business Intelligence</h4>
-                    <p><strong>Analytics & Reporting</strong></p>
-                    <p>Sales trends, inventory optimization, customer insights, and profit analysis</p>
+                    <p>Sales trends, inventory optimization, customer insights, profit analysis, and predictive analytics</p>
                 </div>
             </div>
             
-            <div style="background: linear-gradient(135deg, #059669 0%, #047857 100%); color: white; padding: 30px; border-radius: 15px; text-align: center; margin: 30px 0;">
-                <h3 style="color: white;">One Integrated Platform = 10x More Revenue Per Customer</h3>
+            <div style="background: linear-gradient(135deg, #10b981, #059669); padding: 30px; border-radius: 16px; text-align: center; margin: 30px 0;">
+                <h3 style="color: #ffffff;">One Platform = 10x Revenue Per Customer</h3>
             </div>
         </div>
-
+        
         <!-- SLIDE 3: MARKET OPPORTUNITY -->
         <div class="slide">
-            <h2>Brazilian Market Opportunity</h2>
-            <h3>Massive Underserved Market Ready for Modernization</h3>
+            <h2>Market Opportunity</h2>
+            <h3>$6.84B Market Growing 6% Annually</h3>
             
-            <div class="metrics-grid">
-                <div class="metric">
-                    <span class="metric-number">50,000+</span>
-                    <span class="metric-label">Supermarkets in Brazil</span>
+            <div class="stats-grid">
+                <div class="stat">
+                    <span class="stat-number">50,000+</span>
+                    <span class="stat-label">Brazilian Supermarkets</span>
                 </div>
-                <div class="metric">
-                    <span class="metric-number">$6.84B</span>
-                    <span class="metric-label">POS Terminal Market Size</span>
+                <div class="stat">
+                    <span class="stat-number">$6.84B</span>
+                    <span class="stat-label">POS Market Size</span>
                 </div>
-                <div class="metric">
-                    <span class="metric-number">6%</span>
-                    <span class="metric-label">Annual Market Growth</span>
+                <div class="stat">
+                    <span class="stat-number">6%</span>
+                    <span class="stat-label">Annual Growth Rate</span>
                 </div>
-                <div class="metric">
-                    <span class="metric-number">R$45</span>
-                    <span class="metric-label">Average Transaction Value</span>
+                <div class="stat">
+                    <span class="stat-number">R$135K</span>
+                    <span class="stat-label">Monthly Volume/Store</span>
                 </div>
             </div>
             
-            <div class="revenue-projection">
-                <h3 style="color: #047857;">Market Penetration Strategy:</h3>
-                <ul style="margin: 15px 0; padding-left: 20px;">
-                    <li><strong>Phase 1:</strong> 50 supermarkets via Juliana/Adriana network (6 months)</li>
-                    <li><strong>Phase 2:</strong> 200 supermarkets via word-of-mouth referrals (12 months)</li>
-                    <li><strong>Phase 3:</strong> 500 supermarkets via partner channels (24 months)</li>
-                    <li><strong>Target:</strong> 1% market share = 500 locations generating $5.6M ARR</li>
-                </ul>
+            <div style="background: rgba(16, 185, 129, 0.1); padding: 30px; border-radius: 16px; margin: 30px 0; border: 1px solid rgba(16, 185, 129, 0.2);">
+                <h3 style="color: #10b981;">Penetration Strategy:</h3>
+                <div style="margin: 20px 0; color: #d1d5db;">
+                    <p><strong>Phase 1:</strong> 50 stores via Juliana/Adriana network (6 months)</p>
+                    <p><strong>Phase 2:</strong> 200 stores via referrals (12 months)</p>
+                    <p><strong>Phase 3:</strong> 500 stores via partners (24 months)</p>
+                    <p><strong>Target:</strong> 1% market share = R$28M ARR</p>
+                </div>
             </div>
         </div>
-
+        
         <!-- SLIDE 4: REVENUE MODEL -->
         <div class="slide">
             <h2>Revenue Model</h2>
-            <h3>Multiple Revenue Streams = Predictable Growth</h3>
+            <h3>Multiple Streams = Predictable Growth</h3>
             
-            <div class="metrics-grid">
-                <div class="metric">
-                    <span class="metric-number">R$745</span>
-                    <span class="metric-label">Monthly SaaS Revenue/Location</span>
+            <div class="stats-grid">
+                <div class="stat">
+                    <span class="stat-number">R$745</span>
+                    <span class="stat-label">Monthly SaaS/Location</span>
                 </div>
-                <div class="metric">
-                    <span class="metric-number">R$3,915</span>
-                    <span class="metric-label">Monthly Processing Revenue/Location</span>
+                <div class="stat">
+                    <span class="stat-number">R$3,915</span>
+                    <span class="stat-label">Monthly Processing/Location</span>
                 </div>
-                <div class="metric">
-                    <span class="metric-number">R$4,660</span>
-                    <span class="metric-label">Total Monthly Revenue/Location</span>
+                <div class="stat">
+                    <span class="stat-number">R$4,660</span>
+                    <span class="stat-label">Total Monthly/Location</span>
                 </div>
-                <div class="metric">
-                    <span class="metric-number">R$55,920</span>
-                    <span class="metric-label">Annual Revenue/Location</span>
+                <div class="stat">
+                    <span class="stat-number">R$55,920</span>
+                    <span class="stat-label">Annual Revenue/Location</span>
                 </div>
             </div>
 
-            <div style="background: #f8fafc; padding: 25px; border-radius: 12px; margin: 30px 0;">
-                <h3 style="color: #047857;">Revenue Breakdown Per Location:</h3>
-                <ul style="margin: 15px 0; padding-left: 20px; line-height: 1.8;">
-                    <li><strong>ESTOQUI SaaS:</strong> R$745/month (inventory management subscription)</li>
-                    <li><strong>Payment Processing:</strong> R$3,915/month (2.9% of R$135K monthly transactions)</li>
-                    <li><strong>Hardware Sales:</strong> R$4,495 one-time (tablet, scanner, printer, drawer)</li>
-                    <li><strong>Setup & Training:</strong> R$2,500 one-time implementation fee</li>
-                </ul>
-            </div>
-
-            <div class="roi-calculator">
-                <h3>10 Locations Financial Projection:</h3>
-                <p><strong>Monthly Recurring Revenue:</strong> R$46,600 ($9,320 USD)</p>
-                <p><strong>Annual Recurring Revenue:</strong> R$559,200 ($111,840 USD)</p>
-                <p><strong>One-time Hardware Revenue:</strong> R$69,950 ($13,990 USD)</p>
-                <p><strong>Total Year 1 Revenue:</strong> R$629,150 ($125,830 USD)</p>
+            <div style="background: rgba(255,255,255,0.05); padding: 30px; border-radius: 16px; margin: 30px 0; border: 1px solid rgba(255,255,255,0.1);">
+                <h3 style="color: #10b981;">Revenue Breakdown per Location:</h3>
+                <div style="margin: 20px 0; color: #d1d5db;">
+                    <p><strong>ESTOQUI SaaS:</strong> R$745/month (inventory subscription)</p>
+                    <p><strong>Payment Processing:</strong> R$3,915/month (2.9% of transactions)</p>
+                    <p><strong>Hardware Sales:</strong> R$4,995 one-time setup</p>
+                    <p><strong>Implementation:</strong> R$2,500 one-time fee</p>
+                </div>
             </div>
         </div>
-
-        <!-- SLIDE 5: INVESTMENT BREAKDOWN -->
+        
+        <!-- SLIDE 5: FINANCIAL PROJECTIONS -->
         <div class="slide">
-            <h2>Investment & Cost Structure</h2>
-            <h3>R$175,000 Investment Breakdown</h3>
-            
-            <div class="cost-breakdown">
-                <h3 style="color: #92400e;">Development Costs: R$0 (Internal Development)</h3>
-                <ul style="margin: 15px 0; padding-left: 20px;">
-                    <li><strong>POS Software Development:</strong> R$0 (Bruno + Boss AI internal development)</li>
-                    <li><strong>Stripe Terminal Integration:</strong> R$0 (existing API integration)</li>
-                    <li><strong>ESTOQUI App Enhancement:</strong> R$0 (existing platform expansion)</li>
-                </ul>
-            </div>
-
-            <div class="metrics-grid">
-                <div class="metric">
-                    <span class="metric-number">35%</span>
-                    <span class="metric-label">Hardware Investment (R$61,250)</span>
-                </div>
-                <div class="metric">
-                    <span class="metric-number">30%</span>
-                    <span class="metric-label">Working Capital (R$52,500)</span>
-                </div>
-                <div class="metric">
-                    <span class="metric-number">25%</span>
-                    <span class="metric-label">Marketing & Sales (R$43,750)</span>
-                </div>
-                <div class="metric">
-                    <span class="metric-number">10%</span>
-                    <span class="metric-label">Contingency (R$17,500)</span>
-                </div>
-            </div>
-
-            <div style="background: #f0f9ff; padding: 25px; border-radius: 12px; margin: 30px 0; border-left: 4px solid #0ea5e9;">
-                <h3 style="color: #0c4a6e;">Hardware Costs Per Location:</h3>
-                <ul style="margin: 15px 0; padding-left: 20px;">
-                    <li><strong>iPad Pro:</strong> R$2,500 (point of sale terminal)</li>
-                    <li><strong>Stripe Card Reader:</strong> R$845 (payment processing)</li>
-                    <li><strong>Receipt Printer:</strong> R$750 (customer receipts)</li>
-                    <li><strong>Cash Drawer:</strong> R$500 (cash management)</li>
-                    <li><strong>Barcode Scanner:</strong> R$400 (inventory scanning)</li>
-                    <li><strong>Total Per Location:</strong> R$4,995</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- SLIDE 6: PARTNERSHIP TERMS -->
-        <div class="slide">
-            <h2>Partnership Proposal</h2>
-            <h3>Juliana & Adriana - Strategic Investment Partnership</h3>
-            
-            <div class="partnership-terms">
-                <h3>Investment Terms:</h3>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 20px 0;">
-                    <div>
-                        <p><strong>Cash Investment:</strong> R$175,000</p>
-                        <p><strong>Equity Stake:</strong> 22.5%</p>
-                        <p><strong>Board Seats:</strong> 1 of 3</p>
-                        <p><strong>Vesting:</strong> 4 years</p>
-                    </div>
-                    <div>
-                        <p><strong>Distribution Rights:</strong> Exclusive Brazil</p>
-                        <p><strong>Commission Override:</strong> 2% on all sales</p>
-                        <p><strong>Performance Bonus:</strong> Extra 2.5% equity at 100 locations</p>
-                        <p><strong>Exit Rights:</strong> Tag-along, drag-along</p>
-                    </div>
-                </div>
-            </div>
-
-            <div style="background: #ecfdf5; padding: 25px; border-radius: 12px; margin: 30px 0; border-left: 4px solid #059669;">
-                <h3 style="color: #047857;">What Juliana & Adriana Bring:</h3>
-                <ul style="margin: 15px 0; padding-left: 20px;">
-                    <li><strong>Established Network:</strong> Direct relationships with 200+ supermarket owners</li>
-                    <li><strong>Market Credibility:</strong> Trusted advisors in Brazilian retail community</li>
-                    <li><strong>Local Expertise:</strong> Deep understanding of Brazilian business culture</li>
-                    <li><strong>Sales Acceleration:</strong> Faster market penetration than cold outreach</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- SLIDE 7: FINANCIAL PROJECTIONS -->
-        <div class="slide">
-            <h2>24-Month Financial Projections</h2>
+            <h2>24-Month Projections</h2>
             <h3>Conservative Growth Scenario</h3>
             
-            <div class="timeline">
+            <div class="revenue-timeline">
                 <div class="timeline-item">
                     <h4>Month 6</h4>
-                    <p><strong>10 Locations</strong></p>
+                    <p style="color: #10b981; font-weight: 600;">10 Locations</p>
                     <p>R$46,600 MRR</p>
-                    <p>Break-even reached</p>
+                    <p>Break-even</p>
                 </div>
                 <div class="timeline-item">
                     <h4>Month 12</h4>
-                    <p><strong>35 Locations</strong></p>
+                    <p style="color: #10b981; font-weight: 600;">35 Locations</p>
                     <p>R$163,100 MRR</p>
                     <p>R$1.96M ARR</p>
                 </div>
                 <div class="timeline-item">
                     <h4>Month 18</h4>
-                    <p><strong>65 Locations</strong></p>
+                    <p style="color: #10b981; font-weight: 600;">65 Locations</p>
                     <p>R$302,900 MRR</p>
                     <p>R$3.63M ARR</p>
                 </div>
                 <div class="timeline-item">
                     <h4>Month 24</h4>
-                    <p><strong>100 Locations</strong></p>
+                    <p style="color: #10b981; font-weight: 600;">100 Locations</p>
                     <p>R$466,000 MRR</p>
                     <p>R$5.59M ARR</p>
                 </div>
             </div>
 
-            <div class="roi-calculator">
-                <h3>Return on Investment Calculation:</h3>
-                <p><strong>Initial Investment:</strong> R$175,000</p>
-                <p><strong>24-Month Company Value (5x revenue):</strong> R$27.95M</p>
-                <p><strong>22.5% Equity Value:</strong> R$6.29M</p>
-                <p><strong>ROI:</strong> 3,494% (35x return)</p>
-                <p><strong>Annual ROI:</strong> 1,747% per year</p>
-            </div>
-        </div>
-
-        <!-- SLIDE 8: RISK MITIGATION -->
-        <div class="slide">
-            <h2>Risk Mitigation</h2>
-            <h3>Why This Investment Is Low Risk</h3>
-            
-            <div class="ecosystem-grid">
-                <div class="ecosystem-item">
-                    <h4>🛡️ Market Validation</h4>
-                    <p><strong>Existing Network Ready</strong></p>
-                    <p>Juliana/Adriana already have interested supermarket owners. Pre-validated demand.</p>
-                </div>
-                
-                <div class="ecosystem-item">
-                    <h4>💰 Multiple Revenue Streams</h4>
-                    <p><strong>Diversified Income</strong></p>
-                    <p>SaaS + Processing + Hardware sales. Not dependent on single revenue source.</p>
-                </div>
-                
-                <div class="ecosystem-item">
-                    <h4>🔄 Recurring Revenue</h4>
-                    <p><strong>Sticky Business Model</strong></p>
-                    <p>Once integrated, switching costs are high. Long-term customer retention.</p>
-                </div>
-                
-                <div class="ecosystem-item">
-                    <h4>⚡ Proven Technology</h4>
-                    <p><strong>No Technical Risk</strong></p>
-                    <p>Stripe integration proven. ESTOQUI app already functional. Low development risk.</p>
-                </div>
-            </div>
-
-            <div style="background: #fef2f2; padding: 25px; border-radius: 12px; margin: 30px 0; border-left: 4px solid #dc2626;">
-                <h3 style="color: #dc2626;">Worst Case Scenario Analysis:</h3>
-                <ul style="margin: 15px 0; padding-left: 20px;">
-                    <li><strong>If only 20 locations:</strong> Still R$933K ARR = profitable business</li>
-                    <li><strong>If 50% lower processing:</strong> Still R$2.8M ARR at 100 locations</li>
-                    <li><strong>If competition emerges:</strong> First-mover advantage and network effects</li>
-                    <li><strong>Exit strategy:</strong> Brazilian fintech acquisition at 3-5x revenue</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- SLIDE 9: NEXT STEPS -->
-        <div class="slide">
-            <h2>Ready to Transform Brazilian Retail</h2>
-            
-            <div class="investment-highlight">
-                <h3>Join the ESTOQUI Revolution</h3>
-                <p style="font-size: 20px; margin: 20px 0;">This is the ground floor opportunity to modernize 50,000+ Brazilian supermarkets</p>
-                <p><strong>Your Network + Our Technology = Market Domination</strong></p>
-            </div>
-
-            <div style="background: #f8fafc; padding: 30px; border-radius: 15px; margin: 30px 0;">
-                <h3 style="color: #047857;">Immediate Next Steps:</h3>
-                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 20px 0;">
-                    <div>
-                        <p><strong>Week 1:</strong> Partnership agreement finalization</p>
-                        <p><strong>Week 2:</strong> Investment transfer and equity documentation</p>
-                        <p><strong>Week 3:</strong> First 3 pilot locations identified</p>
-                        <p><strong>Week 4:</strong> Hardware ordering and installation scheduling</p>
-                    </div>
-                    <div>
-                        <p><strong>Month 2:</strong> Pilot locations live and operational</p>
-                        <p><strong>Month 3:</strong> Performance data and case studies</p>
-                        <p><strong>Month 4:</strong> Aggressive expansion to 10 locations</p>
-                        <p><strong>Month 6:</strong> Scale to 25 locations, break-even achieved</p>
-                    </div>
-                </div>
-            </div>
-
-            <div style="text-align: center; margin-top: 40px;">
-                <h3>Contact Information</h3>
-                <p><strong>Bruno Lima</strong> - Founder & CEO, 2FLY Digital Technology</p>
-                <p>📧 bruno@2flydigitalmarketing.com | 📱 +1 (781) 606-2445</p>
-                <p>🌐 Ready for immediate partnership discussion</p>
-                
-                <div style="background: rgba(5, 150, 105, 0.1); padding: 20px; border-radius: 10px; margin: 20px 0;">
-                    <p><strong>This opportunity expires December 31, 2026</strong></p>
-                    <p>Limited to serious strategic partners only</p>
+            <div style="background: linear-gradient(135deg, #1f2937, #374151); padding: 30px; border-radius: 16px; margin: 30px 0;">
+                <h3 style="color: #ffffff;">ROI Calculation:</h3>
+                <div style="color: #e5e7eb; margin: 15px 0;">
+                    <p><strong>Investment:</strong> R$175,000</p>
+                    <p><strong>24-Month Value (5x revenue):</strong> R$27.95M</p>
+                    <p><strong>Your 22.5% Equity:</strong> R$6.29M</p>
+                    <p style="color: #10b981; font-size: 20px; font-weight: 700;"><strong>Total ROI: 3,494%</strong></p>
                 </div>
             </div>
         </div>
         
+        <!-- SLIDE 6: PARTNERSHIP TERMS -->
+        <div class="slide">
+            <h2>Partnership Proposal</h2>
+            <h3>Strategic Investment Terms</h3>
+            
+            <div class="partnership-terms">
+                <h3>Investment Structure:</h3>
+                <div class="terms-grid">
+                    <div>
+                        <p><strong>Cash Investment:</strong> R$175,000</p>
+                        <p><strong>Equity Stake:</strong> 22.5%</p>
+                        <p><strong>Board Seat:</strong> 1 of 3</p>
+                        <p><strong>Vesting:</strong> 4 years</p>
+                    </div>
+                    <div>
+                        <p><strong>Distribution Rights:</strong> Brazil exclusive</p>
+                        <p><strong>Commission Override:</strong> 2% all sales</p>
+                        <p><strong>Performance Bonus:</strong> +2.5% at 100 stores</p>
+                        <p><strong>Exit Rights:</strong> Full protection</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: rgba(16, 185, 129, 0.1); padding: 30px; border-radius: 16px; margin: 30px 0; border: 1px solid rgba(16, 185, 129, 0.2);">
+                <h3 style="color: #10b981;">What You Bring:</h3>
+                <div style="color: #d1d5db; margin: 15px 0;">
+                    <p><strong>Network:</strong> 200+ supermarket relationships</p>
+                    <p><strong>Credibility:</strong> Trusted advisors in retail</p>
+                    <p><strong>Local Knowledge:</strong> Brazilian business culture</p>
+                    <p><strong>Sales Velocity:</strong> 10x faster than cold outreach</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 7: RISK MITIGATION -->
+        <div class="slide">
+            <h2>Risk Mitigation</h2>
+            <h3>Why This Is Low Risk</h3>
+            
+            <div class="features-grid">
+                <div class="feature">
+                    <h4>🛡️ Market Validation</h4>
+                    <p>Pre-validated demand through your existing network. Interested customers already identified.</p>
+                </div>
+                
+                <div class="feature">
+                    <h4>💰 Multiple Revenue Streams</h4>
+                    <p>SaaS + Processing + Hardware. Not dependent on single income source.</p>
+                </div>
+                
+                <div class="feature">
+                    <h4>🔄 Sticky Model</h4>
+                    <p>High switching costs once integrated. Long-term customer retention.</p>
+                </div>
+                
+                <div class="feature">
+                    <h4>⚡ Proven Tech</h4>
+                    <p>Stripe integration tested. ESTOQUI app functional. Low technical risk.</p>
+                </div>
+            </div>
+            
+            <div style="background: rgba(239, 68, 68, 0.1); padding: 25px; border-radius: 16px; margin: 30px 0; border: 1px solid rgba(239, 68, 68, 0.2);">
+                <h3 style="color: #ef4444;">Worst Case Analysis:</h3>
+                <div style="color: #d1d5db; margin: 15px 0;">
+                    <p><strong>20 locations only:</strong> R$933K ARR = still profitable</p>
+                    <p><strong>50% lower processing:</strong> R$2.8M ARR at 100 locations</p>
+                    <p><strong>Competition emerges:</strong> First-mover advantage</p>
+                    <p><strong>Exit strategy:</strong> Fintech acquisition at 3-5x revenue</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 8: NEXT STEPS -->
+        <div class="slide">
+            <h2>Ready to Transform Brazilian Retail</h2>
+            
+            <div class="highlight-box">
+                <h3>Join the ESTOQUI Revolution</h3>
+                <p style="font-size: 20px; margin: 20px 0;">Ground floor opportunity to modernize 50,000+ Brazilian supermarkets</p>
+                <p style="font-size: 18px;"><strong>Your Network + Our Technology = Market Leadership</strong></p>
+            </div>
+
+            <div style="background: rgba(255,255,255,0.05); padding: 30px; border-radius: 16px; margin: 30px 0; border: 1px solid rgba(255,255,255,0.1);">
+                <h3 style="color: #10b981;">Timeline:</h3>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 20px 0; color: #d1d5db;">
+                    <div>
+                        <p><strong>Week 1:</strong> Partnership agreement</p>
+                        <p><strong>Week 2:</strong> Investment & equity docs</p>
+                        <p><strong>Week 3:</strong> First 3 pilot locations</p>
+                        <p><strong>Week 4:</strong> Hardware ordering</p>
+                    </div>
+                    <div>
+                        <p><strong>Month 2:</strong> Pilots operational</p>
+                        <p><strong>Month 3:</strong> Case studies ready</p>
+                        <p><strong>Month 4:</strong> Scale to 10 locations</p>
+                        <p><strong>Month 6:</strong> Break-even achieved</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <p style="color: #d1d5db; font-size: 16px; margin-bottom: 10px;"><strong>Bruno Lima</strong> - Founder & CEO</p>
+                <p style="color: #9ca3af; font-size: 14px;">📧 bruno@2flydigitalmarketing.com | 📱 +1 (781) 606-2445</p>
+            </div>
+        </div>
     </div>
+
+    <div class="navigation">
+        <button class="nav-btn" onclick="changeSlide(-1)">← Previous</button>
+        <button class="nav-btn" onclick="changeSlide(1)">Next →</button>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('totalSlides').textContent = totalSlides;
+        
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+            document.getElementById('currentSlide').textContent = index + 1;
+        }
+        
+        function changeSlide(direction) {
+            currentSlideIndex += direction;
+            
+            if (currentSlideIndex >= totalSlides) {
+                currentSlideIndex = 0;
+            }
+            if (currentSlideIndex < 0) {
+                currentSlideIndex = totalSlides - 1;
+            }
+            
+            showSlide(currentSlideIndex);
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                changeSlide(1);
+            } else if (e.key === 'ArrowLeft') {
+                changeSlide(-1);
+            }
+        });
+        
+        // Auto-advance every 30 seconds (optional)
+        // setInterval(() => changeSlide(1), 30000);
+    </script>
 </body>
 </html>
